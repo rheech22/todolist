@@ -28,6 +28,11 @@ header span {
     animation: fadeRight 1.4s ease-in-out;
 }
 
+header span:hover {
+    color: #ffc312;
+    font-weight: 700;
+}
+
 @keyframes fadeRight {
     0% {
         transform: translateY(-50px);
@@ -83,6 +88,10 @@ aside h4 {
     color: #f1f2f6;
 }
 
+aside h4:hover {
+    color: #ffc312;
+}
+
 .todo-section {
     width: 60%;
     display: flex;
@@ -117,6 +126,12 @@ main::-webkit-scrollbar {
     color: #f1f2f6;
 }
 
+.js-clock:hover,
+.js-weather:hover {
+    color: #ffc312;
+    font-weight: 700;
+}
+
 .js-form {
     height: 5%;
     display: flex;
@@ -144,6 +159,11 @@ main::-webkit-scrollbar {
     font-size: 20px;
     font-weight: 600;
     font-family: "Comfortaa", cursive;
+}
+
+.js-form input:hover,
+.js-toDoForm input:hover {
+    box-shadow: 0px 1px 20px 3px #f1f2f6;
 }
 
 .js-toDoForm {
@@ -200,12 +220,22 @@ main::-webkit-scrollbar {
     background: linear-gradient(to left, #0652dd 1%, transparent 80%);
 }
 
+.list-set__left .list-title:hover {
+    color: #009432;
+    font-weight: 600;
+}
+
 .list-set__right .list-title {
     font-size: 1.8em;
     width: 50%;
     height: 3%;
     display: flex;
     background: linear-gradient(to left, #009432 1%, transparent 80%);
+}
+
+.list-set__right .list-title:hover {
+    color: #0652dd;
+    font-weight: 600;
 }
 
 .pendingList,
