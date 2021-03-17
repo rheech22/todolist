@@ -20,8 +20,6 @@ function saveCoords(coordsObj) {
     localStorage.setItem(COORDS, JSON.stringify(coordsObj));
 }
 
-//getCurrentPositon에 의해 얻은
-
 function handleGeoSuccess(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
