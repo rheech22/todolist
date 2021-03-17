@@ -8,7 +8,8 @@ const FINISH_LS = "finished";
 
 let pendings = [];
 let Finisheds = [];
-let idNum = 1;
+let pendingNum = 1;
+let finishedNum = 1;
 
 function saveThings(list, data) {
     localStorage.setItem(list, JSON.stringify(data));
@@ -60,8 +61,8 @@ function paintPending(text) {
     const firstBtn = document.createElement("button");
     const secondBtn = document.createElement("button");
     const span = document.createElement("span");
-    const newId = idNum;
-    idNum += 1;
+    const newId = pendingNum;
+    pendingNum += 1;
     li.id = newId;
     span.innerText = text;
     firstBtn.innerText = "Del";
@@ -83,8 +84,8 @@ function paintFinished(text) {
     const firstBtn = document.createElement("button");
     const secondBtn = document.createElement("button");
     const span = document.createElement("span");
-    const newId = idNum;
-    idNum += 1;
+    const newId = finishedNum;
+    finishedNum += 1;
     li.id = newId;
     span.innerText = text;
     firstBtn.innerText = "Del";
