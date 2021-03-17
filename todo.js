@@ -1,48 +1,46 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
-toDoInput = toDoForm.querySelector("input"), 
-pendingList = document.querySelector(".pendingList"),
-finishedList = document.querySelector(".finishedList");
+    toDoInput = toDoForm.querySelector("input"),
+    pendingList = document.querySelector(".pendingList"),
+    finishedList = document.querySelector(".finishedList");
 
+const PENDING_LS = "pending";
+const FINISH_LS = "finished";
 
-const PENDING_LS = 'pending'; 
-const FINISH_LS = 'finished'; 
-
-let pendings = []; 
-let Finisheds = []; 
+let pendings = [];
+let Finisheds = [];
 let idNum = 1;
 
-
-function savePending(){
+function savePending() {
     localStorage.setItem(PENDING_LS, JSON.stringify(pendings));
 }
 
-function saveFinished(){
+function saveFinished() {
     localStorage.setItem(FINISH_LS, JSON.stringify(Finisheds));
 }
 
-function cleanPending(event) { 
+function cleanPending(event) {
     const btn = event.target;
     const li = btn.parentNode;
     pendingList.removeChild(li);
-    const cleanedPendings = pendings.filter(function(task){
-        return task.id !== parseInt(li.id);       
+    const cleanedPendings = pendings.filter(function (task) {
+        return task.id !== parseInt(li.id);
     });
-    pendings = cleanedPendings; 
-    savePending(); 
+    pendings = cleanedPendings;
+    savePending();
 }
 
-function cleanFinished(event) { 
+function cleanFinished(event) {
     const btn = event.target;
     const li = btn.parentNode;
     finishedList.removeChild(li);
-    const cleanedFinished = Finisheds.filter(function(task){
-        return task.id !== parseInt(li.id);     
+    const cleanedFinished = Finisheds.filter(function (task) {
+        return task.id !== parseInt(li.id);
     });
-    Finisheds = cleanedFinished; 
-    saveFinished(); 
+    Finisheds = cleanedFinished;
+    saveFinished();
 }
 
-function ReturnToPending(event) { 
+function ReturnToPending(event) {
     const btn = event.target;
     const li = btn.parentNode;
     const CheckBtn = document.createElement("button");
@@ -57,22 +55,22 @@ function ReturnToPending(event) {
     li.appendChild(newDelBtn);
     li.appendChild(CheckBtn);
     pendingList.appendChild(li);
-    const text = li.querySelector("span").innerText; 
+    const text = li.querySelector("span").innerText;
     const returnedObj = {
         text: text,
-        id: newId
+        id: newId,
     };
-    
+
     const DelBtn = li.querySelector("button");
     li.removeChild(DelBtn);
     newDelBtn.addEventListener("click", cleanPending);
     CheckBtn.addEventListener("click", cleanPending);
     CheckBtn.addEventListener("click", moveToFinished);
     pendings.push(returnedObj);
-    savePending(); 
+    savePending();
 }
 
-function moveToFinished(event) { 
+function moveToFinished(event) {
     const btn = event.target;
     const li = btn.parentNode;
     const newDelBtn = document.createElement("button");
@@ -87,23 +85,22 @@ function moveToFinished(event) {
     newDelBtn.addEventListener("click", cleanFinished);
     li.appendChild(newDelBtn);
     li.appendChild(returnBtn);
-    const text = li.querySelector("span").innerText; 
+    const text = li.querySelector("span").innerText;
     const movedObj = {
         text: text,
-        id: newId
+        id: newId,
     };
-    
+
     finishedList.appendChild(li);
     const DelBtn = li.querySelector("button:nth-child(2)");
     li.removeChild(DelBtn);
     const CheckBtn = li.querySelector("button:nth-child(2)");
     li.removeChild(CheckBtn);
     Finisheds.push(movedObj);
-    saveFinished();    
+    saveFinished();
 }
 
-
-function paintPending(text){
+function paintPending(text) {
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
     const CheckBtn = document.createElement("button");
@@ -123,13 +120,13 @@ function paintPending(text){
     pendingList.appendChild(li);
     const pendingObj = {
         text: text,
-        id: newId
+        id: newId,
     };
     pendings.push(pendingObj);
     savePending();
 }
 
-function paintFinished(text){
+function paintFinished(text) {
     const li = document.createElement("li");
     const delBtn = document.createElement("button");
     const returnBtn = document.createElement("button");
@@ -149,46 +146,43 @@ function paintFinished(text){
     finishedList.appendChild(li);
     const finishedObj = {
         text: text,
-        id: newId
+        id: newId,
     };
     Finisheds.push(finishedObj);
-    saveFinished(); 
+    saveFinished();
 }
 
-
-function loadPending(){
+function loadPending() {
     const loadedPending = localStorage.getItem(PENDING_LS);
     if (loadedPending !== null) {
         const parsedPending = JSON.parse(loadedPending);
-        parsedPending.forEach(function(task){
+        parsedPending.forEach(function (task) {
             paintPending(task.text);
         });
     }
-    
 }
 
-function loadFinished(){
+function loadFinished() {
     const loadedFinished = localStorage.getItem(FINISH_LS);
-    if (loadedFinished !== null) {        
-        const parsedFinished = JSON.parse(loadedFinished); 
-        parsedFinished.forEach(function(task){ 
-            paintFinished(task.text); 
+    if (loadedFinished !== null) {
+        const parsedFinished = JSON.parse(loadedFinished);
+        parsedFinished.forEach(function (task) {
+            paintFinished(task.text);
         });
     }
-    
 }
 
-function handleSubmit(event){ 
-    event.preventDefault(); 
+function handleSubmit(event) {
+    event.preventDefault();
     const currentValue = toDoInput.value;
     paintPending(currentValue);
-    toDoInput.value = ""; 
+    toDoInput.value = "";
 }
 
 function init() {
     loadPending();
     loadFinished();
-    toDoForm.addEventListener("submit", handleSubmit) 
+    toDoForm.addEventListener("submit", handleSubmit);
 }
 
 init();
